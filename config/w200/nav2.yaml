@@ -153,7 +153,7 @@ local_costmap:
         mark_threshold: 0
         observation_sources: scan
         scan:
-          topic: sensors/lidar2d_0/scan
+          topic: sensors/lidar3d_0/scan
           max_obstacle_height: 2.0
           clearing: true
           marking: true
@@ -184,7 +184,7 @@ global_costmap:
         enabled: true
         observation_sources: scan
         scan:
-          topic: sensors/lidar2d_0/scan
+          topic: sensors/lidar3d_0/scan
           max_obstacle_height: 2.0
           clearing: true
           marking: true
@@ -245,7 +245,6 @@ behavior_server:
     local_frame: odom
     robot_base_frame: base_link
     transform_tolerance: 0.1
-    enable_stamped_cmd_vel: true
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
     min_rotational_vel: 0.2
@@ -305,7 +304,7 @@ collision_monitor:
     observation_sources: ["scan"]
     scan:
       type: "scan"
-      topic: "sensors/lidar2d_0/scan"
+      topic: "sensors/lidar3d_0/scan"
       min_height: 0.15
       max_height: 2.0
       enabled: True

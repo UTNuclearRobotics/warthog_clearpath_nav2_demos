@@ -101,7 +101,7 @@ def launch_setup(context, *args, **kwargs):
         root_key=namespace,
         param_rewrites={
             'map_name': '/' + namespace + '/map',
-            'scan_topic': '/' + namespace + '/sensors/lidar2d_0/scan',
+            'scan_topic': '/' + namespace + '/sensors/lidar3d_0/scan',
         },
         convert_types=True
     )
