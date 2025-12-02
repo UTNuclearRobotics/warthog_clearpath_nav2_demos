@@ -31,6 +31,8 @@ from ament_index_python.packages import get_package_share_directory
 
 from clearpath_config.clearpath_config import ClearpathConfig
 from clearpath_config.common.utils.yaml import read_yaml
+from launch_ros.actions import Node
+
 
 from launch import LaunchDescription
 from launch.actions import (
@@ -87,6 +89,23 @@ def launch_setup(context, *args, **kwargs):
 
     nav2 = GroupAction([
         PushRosNamespace(namespace),
+
+        Node(
+        package='pointcloud_to_laserscan',
+        executable='pointcloud_to_laserscan_node',
+        name='cloud_to_scan',
+        namespace=namespace,
+        parameters=[{
+            'target_frame': 'lidar3d_0_sensor_link',
+            'min_height': -0.2,
+            'max_height': 0.2,
+            'range_min': 1.27
+        }],
+        remappings=[
+            ('cloud_in', '/' + namespace + '/sensors/lidar3d_0/points'),
+            ('scan', '/' + namespace + '/sensors/lidar3d_0/scan1')
+        ]
+    ),
         SetRemap('/' + namespace + '/global_costmap/sensors/lidar3d_0/scan1',
                  '/' + namespace + '/sensors/lidar3d_0/scan1'),
         SetRemap('/' + namespace + '/local_costmap/sensors/lidar3d_0/scan1',
