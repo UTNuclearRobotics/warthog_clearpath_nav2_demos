@@ -91,21 +91,22 @@ def launch_setup(context, *args, **kwargs):
         PushRosNamespace(namespace),
 
         Node(
-        package='pointcloud_to_laserscan',
-        executable='pointcloud_to_laserscan_node',
-        name='cloud_to_scan',
-        namespace=namespace,
-        parameters=[{
-            'target_frame': 'lidar3d_0_sensor_link',
-            'min_height': -0.2,
-            'max_height': 0.2,
-            'range_min': 1.27
-        }],
-        remappings=[
-            ('cloud_in', '/' + namespace + '/sensors/lidar3d_0/points'),
-            ('scan', '/' + namespace + '/sensors/lidar3d_0/scan1')
-        ]
-    ),
+            package='pointcloud_to_laserscan',
+            executable='pointcloud_to_laserscan_node',
+            name='cloud_to_scan',
+            parameters=[{
+                'use_sim_time': use_sim_time == 'true',
+                'target_frame': 'lidar3d_0_sensor_link',
+                'min_height': -0.2,
+                'max_height': 0.2,
+                'range_min': 1.27,
+            }],
+            remappings=[
+                ('cloud_in', '/' + namespace + '/sensors/lidar3d_0/points'),
+                ('scan', '/' + namespace + '/sensors/lidar3d_0/scan1')
+            ]
+        ),
+
         SetRemap('/' + namespace + '/global_costmap/sensors/lidar3d_0/scan1',
                  '/' + namespace + '/sensors/lidar3d_0/scan1'),
         SetRemap('/' + namespace + '/local_costmap/sensors/lidar3d_0/scan1',
