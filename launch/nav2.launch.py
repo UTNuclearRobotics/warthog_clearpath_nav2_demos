@@ -95,8 +95,8 @@ def launch_setup(context, *args, **kwargs):
             executable='pointcloud_to_laserscan_node',
             name='cloud_to_scan',
             parameters=[{
-                'use_sim_time': use_sim_time == 'true',
-                'target_frame': 'lidar3d_0_sensor_link',
+                'use_sim_time': use_sim_time.perform(context) == 'true',
+                'target_frame': 'w200_0106/robot/base_link/lidar3d_0' if use_sim_time.perform(context) == 'true' else 'lidar3d_0_sensor_link',
                 'min_height': -0.2,
                 'max_height': 0.2,
                 'range_min': 1.27,
