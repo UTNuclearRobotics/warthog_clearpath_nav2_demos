@@ -137,7 +137,12 @@ local_costmap:
       resolution: 0.06
       footprint: "[ [0.76, 0.69], [0.76, -0.69], [-0.76, -0.69], [-0.76, 0.69] ]"
       always_send_full_costmap: true
-      plugins: ["static_layer", "voxel_layer", "inflation_layer"]
+      plugins: ["static_layer", "voxel_layer", "denoise_layer", "inflation_layer"]
+      denoise_layer:
+        plugin: "nav2_costmap_2d::DenoiseLayer"
+        enabled: true
+        minimal_group_size: 8
+        group_connectivity_type: 8
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
@@ -178,7 +183,7 @@ global_costmap:
       resolution: 0.06
       track_unknown_space: true
       always_send_full_costmap: true
-      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      plugins: ["static_layer", "obstacle_layer", "denoise_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
@@ -196,6 +201,11 @@ global_costmap:
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: true
+      denoise_layer:
+        plugin: "nav2_costmap_2d::DenoiseLayer"
+        enabled: true
+        minimal_group_size: 8
+        group_connectivity_type: 8
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
