@@ -5,9 +5,9 @@ bt_navigator:
     robot_base_frame: base_link
     odom_topic: platform/odom/filtered
     bt_loop_duration: 10
-    default_server_timeout: 20
+    default_server_timeout: 500
     wait_for_service_timeout: 1000
-    action_server_result_timeout: 900.0
+    action_server_result_timeout: 1800.0
     navigators: ["navigate_to_pose", "navigate_through_poses"]
     navigate_to_pose:
       plugin: "nav2_bt_navigator::NavigateToPoseNavigator"
@@ -36,8 +36,8 @@ controller_server:
     general_goal_checker:
       stateful: true
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.25
-      yaw_goal_tolerance: 0.25
+      xy_goal_tolerance: 0.5
+      yaw_goal_tolerance: 1.57
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
       time_steps: 56
@@ -146,7 +146,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 2.0
+        inflation_radius: 1.1
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: true
@@ -209,7 +209,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 2.0
+        inflation_radius: 1.1
 
 planner_server:
   ros__parameters:
