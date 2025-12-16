@@ -97,7 +97,7 @@ def launch_setup(context, *args, **kwargs):
             parameters=[{
                 'use_sim_time': use_sim_time.perform(context) == 'true',
                 'target_frame': 'w200_0106/robot/base_link/lidar3d_0' if use_sim_time.perform(context) == 'true' else 'lidar3d_0_sensor_link',
-                'min_height': -0.2,
+                'min_height': -0.05,
                 'max_height': 0.2,
                 'range_min': 1.5,
             }],
@@ -106,6 +106,24 @@ def launch_setup(context, *args, **kwargs):
                 ('scan', '/' + namespace + '/sensors/lidar3d_0/scan1')
             ]
         ),
+        # #TO filter out data if needed later on, make sure to tweak the nav2.yaml to use the filftered topic.
+        # Node(
+        #     package='laser_filters',  # Assuming the package is installed
+        #     executable='laser_filter_node',
+        #     name='laser_filter',
+        #     parameters=[{
+        #         'use_sim_time': use_sim_time.perform(context) == 'true',
+        #         'range_min': 1.0,  # Minimum valid range
+        #         'range_max': 30.0, # Maximum valid range
+        #         'filter_method': 'range',  # Could be another method depending on your requirements
+        #         'apply_smoothing': True,  # If you want to smooth the data
+        #     }],
+        #     remappings=[
+        #         ('scan_in', '/' + namespace + '/sensors/lidar3d_0/scan1'),  # Remap input scan topic
+        #         ('scan_out', '/' + namespace + '/sensors/lidar3d_0/scan_filtered')  # Filtered scan output
+        #     ]
+        # ),
+
 
         SetRemap('/' + namespace + '/global_costmap/sensors/lidar3d_0/scan1',
                  '/' + namespace + '/sensors/lidar3d_0/scan1'),
