@@ -99,10 +99,11 @@ def launch_setup(context, *args, **kwargs):
                 'target_frame': 'w200_0106/robot/base_link/lidar3d_0' if use_sim_time.perform(context) == 'true' else 'lidar3d_0_sensor_link',
                 'min_height': -0.2,
                 'max_height': 0.2,
-                'range_min': 1.5,
+                'range_min': 0.0,
+                'range_max': 30.0,
             }],
             remappings=[
-                ('cloud_in', '/' + namespace + '/sensors/lidar3d_0/points'),
+                ('cloud_in', '/' + namespace + '/sensors/lidar3d_0/points_filtered'),
                 ('scan', '/' + namespace + '/sensors/lidar3d_0/scan1')
             ]
         ),

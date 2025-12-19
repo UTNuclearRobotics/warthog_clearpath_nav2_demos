@@ -47,10 +47,10 @@ controller_server:
       ax_min: -3.0
       ay_max: 3.0
       az_max: 3.5
-      vx_std: 5.0
+      vx_std: 1.0
       vy_std: 1.5
       wz_std: 0.8
-      vx_max: 7.5
+      vx_max: 3.0
       vx_min: -0.35
       vy_max: 2.5
       wz_max: 2.5
