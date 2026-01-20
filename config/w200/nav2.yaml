@@ -94,7 +94,7 @@ controller_server:
         enabled: true
         cost_power: 1
         cost_weight: 3.81
-        critical_cost: 300.0
+        critical_cost: 600.0
         consider_footprint: true
         collision_cost: 1000000.0
         near_goal_distance: 1.0
@@ -102,7 +102,7 @@ controller_server:
       PathAlignCritic:
         enabled: true
         cost_power: 1
-        cost_weight: 14.0
+        cost_weight: 28.0
         max_path_occupancy_ratio: 0.05
         trajectory_point_step: 4
         threshold_to_consider: 0.5
@@ -132,8 +132,8 @@ local_costmap:
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
-      width: 10
-      height: 10
+      width: 15
+      height: 15
       resolution: 0.06
       footprint: "[ [0.76, 0.69], [0.76, -0.69], [-0.76, -0.69], [-0.76, 0.69] ]"
       always_send_full_costmap: true
@@ -145,7 +145,7 @@ local_costmap:
         group_connectivity_type: 8
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 3.0
+        cost_scaling_factor: 6.0
         inflation_radius: 1.1
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
@@ -208,7 +208,7 @@ global_costmap:
         group_connectivity_type: 8
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 3.0
+        cost_scaling_factor: 6.0
         inflation_radius: 1.1
 
 planner_server:
