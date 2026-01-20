@@ -36,8 +36,8 @@ controller_server:
     general_goal_checker:
       stateful: true
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.5
-      yaw_goal_tolerance: 1.57
+      xy_goal_tolerance: 1.0
+      yaw_goal_tolerance: 3.14
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
       time_steps: 56
@@ -132,8 +132,8 @@ local_costmap:
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
-      width: 5
-      height: 5
+      width: 10
+      height: 10
       resolution: 0.06
       footprint: "[ [0.76, 0.69], [0.76, -0.69], [-0.76, -0.69], [-0.76, 0.69] ]"
       always_send_full_costmap: true
