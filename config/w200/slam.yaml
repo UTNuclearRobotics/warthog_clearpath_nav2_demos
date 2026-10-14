@@ -12,7 +12,7 @@ slam_toolbox:
     # ROS Parameters
     # These are modified by slam.launch.py
     # Do mot modify the map_name or scan_topic here
-    odom_frame: odom
+    odom_frame: gps_odom
     map_frame: map
     map_name: /map
     base_frame: base_link
@@ -34,7 +34,7 @@ slam_toolbox:
     # General Parameters
     use_scan_matching: true
     use_scan_barycenter: true
-    minimum_travel_distance: 0.2
+    minimum_travel_distance: 0.5
     minimum_travel_heading: 0.2
     scan_buffer_size: 10
     scan_buffer_maximum_scan_distance: 10.0
