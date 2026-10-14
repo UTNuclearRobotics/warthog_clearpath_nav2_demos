@@ -50,7 +50,7 @@ controller_server:
       vx_std: 1.0
       vy_std: 1.5
       wz_std: 0.8
-      vx_max: 5.0
+      vx_max: 3.0
       vx_min: -0.35
       vy_max: 2.5
       wz_max: 2.5
@@ -139,6 +139,7 @@ local_costmap:
       enable_stamped_cmd_vel: true
       update_frequency: 5.0
       publish_frequency: 2.0
+      transform_tolerance: 0.5
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
@@ -156,7 +157,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 1.0
-        inflation_radius: 1.1
+        inflation_radius: 3.0
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: true
@@ -187,6 +188,7 @@ global_costmap:
       enable_stamped_cmd_vel: true
       update_frequency: 1.0
       publish_frequency: 1.0
+      transform_tolerance: 0.5
       global_frame: map
       robot_base_frame: base_link
       footprint: "[ [0.76, 0.69], [0.76, -0.69], [-0.76, -0.69], [-0.76, 0.69] ]"
@@ -219,7 +221,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 1.0
-        inflation_radius: 1.1
+        inflation_radius: 3.0
 
 planner_server:
   ros__parameters:
@@ -264,7 +266,7 @@ behavior_server:
     global_frame: map
     local_frame: odom
     robot_base_frame: base_link
-    transform_tolerance: 0.1
+    transform_tolerance: 0.3
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
     min_rotational_vel: 0.2
