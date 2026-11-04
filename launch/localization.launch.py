@@ -46,7 +46,7 @@ from launch.substitutions import (
     PathJoinSubstitution
 )
 
-from launch_ros.actions import PushRosNamespace
+from launch_ros.actions import PushRosNamespace, SetRemap
 
 
 ARGUMENTS = [
@@ -88,6 +88,7 @@ def launch_setup(context, *args, **kwargs):
 
     localization = GroupAction([
         PushRosNamespace(namespace),
+        SetRemap('amcl_pose', 'localization/pose'),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(launch_localization),
