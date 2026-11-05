@@ -37,9 +37,20 @@ controller_server:
       stateful: true
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 1.0
-      yaw_goal_tolerance: 3.14
+      yaw_goal_tolerance: 0.5
     FollowPath:
-      plugin: "nav2_mppi_controller::MPPIController"
+      plugin: "nav2_rotation_shim_controller::RotationShimController"
+      primary_controller: "nav2_mppi_controller::MPPIController"
+
+      # --- Rotation shim ---
+      angular_dist_threshold: 0.785        # rotate in place if path heading is > 45° off
+      angular_disengage_threshold: 0.3925  # hand back to MPPI once within ~22°
+      forward_sampling_distance: 0.5       # how far along the path to measure heading
+      rotate_to_heading_angular_vel: 1.0   # rad/s while turning in place
+      max_angular_accel: 3.2
+      simulate_ahead_time: 1.0             # collision check while rotating
+      rotate_to_goal_heading: true
+
       time_steps: 30
       model_dt: 0.1
       batch_size: 1000
@@ -148,8 +159,8 @@ local_costmap:
       resolution: 0.1
       footprint: "[ [0.76, 0.69], [0.76, -0.69], [-0.76, -0.69], [-0.76, 0.69] ]"
       always_send_full_costmap: true
-      plugins: ["static_layer", "voxel_layer", "denoise_layer", "inflation_layer"]
-      # plugins: ["voxel_layer", "denoise_layer", "inflation_layer"]
+      # plugins: ["static_layer", "voxel_layer", "denoise_layer", "inflation_layer"]
+      plugins: ["voxel_layer", "denoise_layer", "inflation_layer"]
       denoise_layer:
         plugin: "nav2_costmap_2d::DenoiseLayer"
         enabled: true
@@ -179,9 +190,9 @@ local_costmap:
           raytrace_min_range: 0.0
           obstacle_max_range: 7.0
           obstacle_min_range: 0.0
-      static_layer:
-        plugin: "nav2_costmap_2d::StaticLayer"
-        map_subscribe_transient_local: true
+      # static_layer:
+      #   plugin: "nav2_costmap_2d::StaticLayer"
+      #   map_subscribe_transient_local: true
 
 global_costmap:
   global_costmap:
