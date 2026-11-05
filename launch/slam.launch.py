@@ -117,6 +117,7 @@ def launch_setup(context, *args, **kwargs):
 
         SetRemap('/tf', '/' + namespace + '/tf'),
         SetRemap('/tf_static', '/' + namespace + '/tf_static'),
+        SetRemap('pose', 'localization/pose'),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(launch_slam_sync),

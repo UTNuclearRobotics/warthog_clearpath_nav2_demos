@@ -20,7 +20,7 @@ bt_navigator:
 controller_server:
   ros__parameters:
     enable_stamped_cmd_vel: true
-    controller_frequency: 20.0
+    controller_frequency: 10.0
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
@@ -40,9 +40,9 @@ controller_server:
       yaw_goal_tolerance: 3.14
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
-      time_steps: 56
-      model_dt: 0.05
-      batch_size: 2000
+      time_steps: 30
+      model_dt: 0.1
+      batch_size: 1000
       ax_max: 3.0
       ax_min: -3.0
       ay_max: 3.0
@@ -55,7 +55,7 @@ controller_server:
       vy_max: 2.5
       wz_max: 2.5
       iteration_count: 1
-      prune_distance: 10.0
+      prune_distance: 12.0
       transform_tolerance: 0.1
       temperature: 0.3
       gamma: 0.015
@@ -143,13 +143,13 @@ local_costmap:
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
-      width: 15
-      height: 15
-      resolution: 0.06
+      width: 20
+      height: 20
+      resolution: 0.1
       footprint: "[ [0.76, 0.69], [0.76, -0.69], [-0.76, -0.69], [-0.76, 0.69] ]"
       always_send_full_costmap: true
-      # plugins: ["static_layer", "voxel_layer", "denoise_layer", "inflation_layer"]
-      plugins: ["voxel_layer", "denoise_layer", "inflation_layer"]
+      plugins: ["static_layer", "voxel_layer", "denoise_layer", "inflation_layer"]
+      # plugins: ["voxel_layer", "denoise_layer", "inflation_layer"]
       denoise_layer:
         plugin: "nav2_costmap_2d::DenoiseLayer"
         enabled: true
@@ -179,9 +179,9 @@ local_costmap:
           raytrace_min_range: 0.0
           obstacle_max_range: 7.0
           obstacle_min_range: 0.0
-      # static_layer:
-      #   plugin: "nav2_costmap_2d::StaticLayer"
-      #   map_subscribe_transient_local: true
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: true
 
 global_costmap:
   global_costmap:
@@ -190,17 +190,17 @@ global_costmap:
       update_frequency: 1.0
       publish_frequency: 1.0
       transform_tolerance: 0.5
-      rolling_window: true
-      width: 120
-      height: 120
+      rolling_window: false
+      width: 30
+      height: 30
       global_frame: map
       robot_base_frame: base_link
       footprint: "[ [0.76, 0.69], [0.76, -0.69], [-0.76, -0.69], [-0.76, 0.69] ]"
       resolution: 0.5
       track_unknown_space: false
       always_send_full_costmap: true
-      # plugins: ["static_layer", "obstacle_layer", "denoise_layer", "inflation_layer"]
-      plugins: ["obstacle_layer", "denoise_layer", "inflation_layer"]
+      plugins: ["static_layer", "obstacle_layer", "denoise_layer", "inflation_layer"]
+      # plugins: ["obstacle_layer", "denoise_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
@@ -215,9 +215,9 @@ global_costmap:
           raytrace_min_range: 0.0
           obstacle_max_range: 10.0
           obstacle_min_range: 0.0
-      # static_layer:
-      #   plugin: "nav2_costmap_2d::StaticLayer"
-      #   map_subscribe_transient_local: true
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: true
       denoise_layer:
         plugin: "nav2_costmap_2d::DenoiseLayer"
         enabled: true
@@ -279,6 +279,7 @@ behavior_server:
 
 waypoint_follower:
   ros__parameters:
+    global_frame_id: gps_odom
     enable_stamped_cmd_vel: true
     loop_rate: 20
     stop_on_failure: false
