@@ -16,7 +16,7 @@ slam_toolbox:
     map_frame: map
     map_name: /map
     base_frame: base_link
-    scan_topic: /scan
+    scan_topic: sensors/lidar3d_0/scan1
     mode: mapping
 
     debug_logging: false
